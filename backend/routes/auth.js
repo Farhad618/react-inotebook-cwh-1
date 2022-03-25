@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = "qiuwrhdjkfgi";
 
 router.post(
     '/creatuser',
@@ -25,12 +29,26 @@ router.post(
             return res.status(400).json({ errors: `Use different email.` });
         }
 
+        //hashing the password
+        const salt = await bcrypt.genSalt(10);
+        const secPass = await bcrypt.hash(req.body.password, salt);
+
         User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: secPass,
         })
-            .then(user => res.json(user))
+            .then(user => {
+                const data = {
+                    user:{
+                        id: user.id
+                    }
+                }
+                const authToken = jwt.sign(data, JWT_SECRET);
+                // console.log(authToken)
+                // res.json(user)
+                res.json({authToken})
+            })
             .catch(err => {
                 res.json({ error: err });
             });
