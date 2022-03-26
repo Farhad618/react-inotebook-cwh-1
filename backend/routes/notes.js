@@ -67,6 +67,62 @@ router.get(
     }
 );
 
+//update note of authinticate user
+router.put(
+    '/updatenote/:id',
+    fetchUser,
+    async (req, res) => {
+        // console.log(req.user.id)
+
+        // if title and desc are not empty then update the note
+        try {
+            // console.log(req.params.id);
+            Notes.findById(req.params.id)
+                .then(note => {
+                    // console.log(note.user.toString())
+                    //if auth tokens id and the notes in the user id is equal then it will allow to prossid further
+                    if (note.user.toString() == req.user.id) {
+                        const { title, description, tag } = req.body;
+                        // console.log(description.trim().length<3);
+                        // Finds the validation errors in this request and wraps them in an object with handy functions
+                        if (title != undefined && (title.trim().length < 3)) {
+                            return res.status(400).send("title you have used is not aceptable.");
+                        }
+
+                        if (description != undefined && (description.trim().length < 3)) {
+                            return res.status(400).send("description you have used is not aceptable.");
+                        }
+
+                        let newNote = {/* 
+                        title: title,
+                        description: description
+                     */};
+
+                        if (title) { newNote.title = title; }
+                        if (description) { newNote.description = description; }
+                        if (tag != undefined && (tag.trim().length < 1)) { newNote.tag = tag; }
+
+                        Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true }).then(updatedNote => {
+                            // console.log(updatedNote);
+                            res.json(updatedNote);
+                        });
+                    } else {
+                        res.status(404).send("note not found");
+                    }
+
+
+
+                })
+                .catch(err => {
+                    res.status(404).send("note not found");
+                });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send("Server connection error")
+        }
+    }
+);
+
 
 
 
