@@ -4,9 +4,9 @@ const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const fetchUser = require('../middleware/fetchuser')
+const fetchUser = require('../middleware/fetchuser');
 
-const JWT_SECRET = "qiuwrhdjkfgi";
+const JWT_SECRET = "qiuwrhdjkfgi"; //jwt secret
 
 //user creat and data validation
 router.post(
