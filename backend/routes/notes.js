@@ -107,11 +107,41 @@ router.put(
                             res.json(updatedNote);
                         });
                     } else {
-                        res.status(404).send("note not found");
+                        return res.status(404).send("note not found");
                     }
+                })
+                .catch(err => {
+                    res.status(404).send("note not found");
+                });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send("Server connection error")
+        }
+    }
+);
 
+//delete note of authinticate user
+router.delete(
+    '/deletenote/:id',
+    fetchUser,
+    async (req, res) => {
+        // console.log(req.user.id)
 
-
+        // if title and desc are not empty then update the note
+        try {
+            // console.log(req.params.id);
+            Notes.findById(req.params.id)
+                .then(note => {
+                    // console.log(note.user.toString())
+                    //if auth tokens id and the notes in the user id is equal then it will allow to prossid further
+                    if (note.user.toString() == req.user.id) {
+                        Notes.findByIdAndDelete(req.params.id).then(deletedNote => {
+                            // console.log(updatedNote);
+                            res.json({msg:"the note has been deleted succesfuly.", deletedNote: deletedNote});
+                        });
+                    } else {
+                        return res.status(404).send("note not found");
+                    }
                 })
                 .catch(err => {
                     res.status(404).send("note not found");
