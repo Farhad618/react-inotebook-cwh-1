@@ -7,7 +7,7 @@ import NoteEachItem from './NoteEachItem';
 const AllNotes = () => {
     const context = useContext(noteContext);
     // eslint-disable-next-line
-    const {notes, setNotes} = context;
+    const {notes} = context;
   return (
     <Row>
       {

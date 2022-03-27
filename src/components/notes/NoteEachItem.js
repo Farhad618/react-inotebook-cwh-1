@@ -5,7 +5,7 @@ import { PencilSquare, Trash3 } from 'react-bootstrap-icons';
 const NoteEachItem = (props) => {
     return (
         <Col>
-            <Card style={{ width: '18rem' }}>
+            <Card style={{ width: '18rem' }} className="my-3">
                 <Card.Header as="h5">{props.noteTitle}</Card.Header>
                 <Card.Body>
                     <Card.Subtitle className="">
