@@ -1,5 +1,7 @@
 import React, {useContext} from 'react';
+import { Row } from 'react-bootstrap';
 import noteContext from '../../context/notes/noteContext';
+import NoteEachItem from './NoteEachItem';
 
 
 const AllNotes = () => {
@@ -7,13 +9,13 @@ const AllNotes = () => {
     // eslint-disable-next-line
     const {notes, setNotes} = context;
   return (
-    <div>
+    <Row>
       {
           notes.map((note)=>{
-              return note.title + " | ";
+              return <NoteEachItem noteId={note._id} noteTitle={note.title} noteDescrp={note.description} noteTag={note.tag} noteCreate={note.date} />;
           })
       }
-    </div>
+    </Row>
   );
 }
 
