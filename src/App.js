@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import About from "./components/About";
 import NoteState from "./context/notes/noteState";
+import AlertCompo from "./components/utilities/Alert";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <NoteState>
         <Router>
           <NavBar />
+          {/* <AlertCompo head={"heading"} type={"danger"} /> */}
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />

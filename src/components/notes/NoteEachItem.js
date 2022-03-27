@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Card, Badge } from 'react-bootstrap';
-import { ArrowRight, Trash3 } from 'react-bootstrap-icons';
+import { PencilSquare, Trash3 } from 'react-bootstrap-icons';
 
 const NoteEachItem = (props) => {
     return (
@@ -16,8 +16,8 @@ const NoteEachItem = (props) => {
                     <Card.Text>
                         {props.noteDescrp}
                     </Card.Text>
-                    <Card.Link href="#" className='text-danger'><Trash3 size={26} /></Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
+                    <Card.Link href="#" className='text-danger'><Trash3 /></Card.Link>
+                    <Card.Link href="#" className='text-primary'><PencilSquare /></Card.Link>
                 </Card.Body>
                 <Card.Footer>
                     <small className="text-muted">Created on - {props.noteCreate}</small>

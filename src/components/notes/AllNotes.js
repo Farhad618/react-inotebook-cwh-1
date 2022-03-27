@@ -12,7 +12,7 @@ const AllNotes = () => {
     <Row>
       {
           notes.map((note)=>{
-              return <NoteEachItem noteId={note._id} noteTitle={note.title} noteDescrp={note.description} noteTag={note.tag} noteCreate={note.date} />;
+              return <NoteEachItem key={note._id} noteTitle={note.title} noteDescrp={note.description} noteTag={note.tag} noteCreate={note.date} />;
           })
       }
     </Row>
