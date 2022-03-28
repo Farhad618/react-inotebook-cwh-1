@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import noteContext from '../../context/notes/noteContext';
 import NoteEachItem from './NoteEachItem';
@@ -7,7 +7,12 @@ import NoteEachItem from './NoteEachItem';
 const AllNotes = () => {
   const context = useContext(noteContext);
   // eslint-disable-next-line
-  const { notes } = context;
+  const { notes, allNotes } = context;
+
+  useEffect(() => {
+    allNotes();
+  }, []);
+
   return (
     <Row>
       {

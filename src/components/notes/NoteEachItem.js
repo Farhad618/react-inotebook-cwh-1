@@ -7,21 +7,24 @@ const NoteEachItem = (props) => {
     const context = useContext(noteContext);
     return (
         <Col>
-            <Card style={{ width: '18rem' }} className="my-3">
+            <Card style={{ width: '25rem' }} className="my-3">
                 <Card.Header as="h5">
                     <Stack direction="horizontal" gap={3}>
-                        {props.noteTitle}
+                        <div className='text-wrap' style={{ maxWidth: '150px' }}>
+                            {props.noteTitle}
+                        </div>
                         <Trash3 className='text-danger ms-auto crpointer' onClick={() => { context.deleteNote(props.noteId) }} />
                         <div className="vr" />
                         <PencilSquare className='text-primary crpointer' />
+                        <div className="vr" />
+                        <Badge pill bg="light" text='success' className='border border-success'>
+                            {props.noteTag === "" ? "General" : props.noteTag}
+                        </Badge>
                     </Stack>
 
                 </Card.Header>
                 <Card.Body>
                     <Card.Subtitle className="">
-                        <Badge bg="light" text="dark">
-                            {props.noteTag}
-                        </Badge>
                     </Card.Subtitle>
                     <Card.Text>
                         {props.noteDescrp}

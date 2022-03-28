@@ -2,56 +2,79 @@ import React, { useState } from "react";
 import noteContext from "./noteContext";
 
 const NoteState = (props) => {
-  const state = [
-    {
-      "_id": "623e8b8d72c1c07dc1a45563",
-      "user": "623e77822d75272c3fdcc174",
-      "title": "nn1",
-      "description": "dn1",
-      "tag": "t1",
-      "date": "2022-03-26T03:42:05.301Z",
-      "__v": 0
-    },
-    {
-      "_id": "623e8bcf72c1c07dc1a45565",
-      "user": "623e77822d75272c3fdcc174",
-      "title": "nn1",
-      "description": "db1",
-      "tag": "",
-      "date": "2022-03-26T03:43:11.537Z",
-      "__v": 0
-    }
-  ];
+  const host = "http://localhost:5000";
+  const state = []; // all notes under this
 
   const [notes, setNotes] = useState(state);
 
   //add note
   const addNote = (title, description, tag) => {
     // console.log("<noteState.js: note added>");
-
-    const note = {
-      "_id": "623e8bcf72c1c07dc1a45565",
-      "user": "623e77822d75272c3fdcc174",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": "2022-03-26T03:43:11.537Z",
-      "__v": 0
-    };
-
-    setNotes(notes.concat(note));
+    fetch(
+      `${host}/api/notes/addnote`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzZTc3ODIyZDc1MjcyYzNmZGNjMTc0In0sImlhdCI6MTY0ODI3MzQ3Nn0.pUtruQa3T4hLbCmYQAVrrhwPmaEzqUFjICjMLpCwYi8'
+        },
+        body: JSON.stringify({ title, description, tag })
+      }
+    ).then((response) => {
+      // console.log("<noteState.js: " + Object.values(response) + ">");
+      response.json().then(note => {
+        // console.log("<noteState.js: " + JSON.stringify(note) + ">");
+        setNotes(notes.concat(note))
+      });
+    })
   }
+
+  //read all notes
+  const allNotes = () => {
+    const response = fetch(
+      `${host}/api/notes/allnotes`,
+      {
+        method: 'GET',
+        headers: {
+          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzZTc3ODIyZDc1MjcyYzNmZGNjMTc0In0sImlhdCI6MTY0ODI3MzQ3Nn0.pUtruQa3T4hLbCmYQAVrrhwPmaEzqUFjICjMLpCwYi8'
+
+        }
+      }
+    ).then(resp => {
+      resp.json().then(json => {
+        // console.log("<notestate.js: hi>");
+        // console.log(json);
+        setNotes(json);
+      })
+    })
+
+  }
+
+
 
   //delete note
 
   const deleteNote = (id) => {
-    setNotes(notes.filter((note) => {
-      return note._id !== id;
-    }))
+    fetch(
+      `${host}/api/notes/deletenote/${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzZTc3ODIyZDc1MjcyYzNmZGNjMTc0In0sImlhdCI6MTY0ODI3MzQ3Nn0.pUtruQa3T4hLbCmYQAVrrhwPmaEzqUFjICjMLpCwYi8'
+        }
+      }
+    ).then(() => {
+      setNotes(notes.filter((note) => {
+        return note._id !== id;
+      }))
+    })
+
+
   }
 
   return (
-    <noteContext.Provider value={{ notes, addNote, deleteNote }}>
+    <noteContext.Provider value={{ notes, addNote, deleteNote, allNotes }}>
       {props.children}
     </noteContext.Provider>
   )
