@@ -100,7 +100,9 @@ router.put(
 
                         if (title) { newNote.title = title; }
                         if (description) { newNote.description = description; }
-                        if (tag != undefined && (tag.trim().length < 1)) { newNote.tag = tag; }
+                        if (tag != undefined && (tag.trim().length > 0)) { newNote.tag = tag; }
+
+                        // console.log(newNote.tag)
 
                         Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true }).then(updatedNote => {
                             // console.log(updatedNote);

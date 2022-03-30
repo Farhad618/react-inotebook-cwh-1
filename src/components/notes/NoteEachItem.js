@@ -5,7 +5,8 @@ import noteContext from '../../context/notes/noteContext';
 
 const NoteEachItem = (props) => {
     const context = useContext(noteContext);
-    return (
+    return (<>
+        {/* <EditNoteModal title={props.noteTitle} desription={props.noteDescrp} tag={props.noteTag} noteid={props.noteId} /> */}
         <Col>
             <Card style={{ width: '25rem' }} className="my-3">
                 <Card.Header as="h5">
@@ -15,7 +16,7 @@ const NoteEachItem = (props) => {
                         </div>
                         <Trash3 className='text-danger ms-auto crpointer' onClick={() => { context.deleteNote(props.noteId) }} />
                         <div className="vr" />
-                        <PencilSquare className='text-primary crpointer' />
+                        <PencilSquare className='text-primary crpointer' onClick={() => { context.updateNoteValuesToState([props.noteTitle, props.noteDescrp, props.noteTag, props.noteId]) }} />
                         <div className="vr" />
                         <Badge pill bg="light" text='success' className='border border-success'>
                             {props.noteTag === "" ? "General" : props.noteTag}
@@ -35,7 +36,7 @@ const NoteEachItem = (props) => {
                 </Card.Footer>
             </Card>
         </Col>
-    );
+    </>);
 }
 
 export default NoteEachItem;
