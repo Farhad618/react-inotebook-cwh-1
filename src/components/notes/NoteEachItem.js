@@ -5,6 +5,7 @@ import noteContext from '../../context/notes/noteContext';
 
 const NoteEachItem = (props) => {
     const context = useContext(noteContext);
+    const {formStateHidden, setFormStateHidden} = context;
     return (<>
         {/* <EditNoteModal title={props.noteTitle} desription={props.noteDescrp} tag={props.noteTag} noteid={props.noteId} /> */}
         <Col>
@@ -16,7 +17,12 @@ const NoteEachItem = (props) => {
                         </div>
                         <Trash3 className='text-danger ms-auto crpointer' onClick={() => { context.deleteNote(props.noteId) }} />
                         <div className="vr" />
-                        <PencilSquare className='text-primary crpointer' onClick={() => { context.updateNoteValuesToState([props.noteTitle, props.noteDescrp, props.noteTag, props.noteId]) }} />
+                        <PencilSquare className='text-primary crpointer' onClick={
+                            () => {
+                                context.updateNoteValuesToState({ id: props.noteId, title: props.noteTitle, description: props.noteDescrp, tag: props.noteTag })
+                                setFormStateHidden(true);
+                            }
+                        } />
                         <div className="vr" />
                         <Badge pill bg="light" text='success' className='border border-success'>
                             {props.noteTag === "" ? "General" : props.noteTag}

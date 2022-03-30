@@ -6,11 +6,14 @@ const NoteState = (props) => {
   const state = []; // all notes under this
 
   const [notes, setNotes] = useState(state);
-  const [updateNoteValues, setUpdateNoteValues] = useState([]);
+  const [updateNoteValues, setUpdateNoteValues] = useState({});
+
+  // jodi update er jonno ase ta hole true set korar 
+  const [formStateHidden, setFormStateHidden] = useState(false);
 
   //add note
   const addNote = (title, description, tag) => {
-    // console.log("<noteState.js: note added>");
+    //  console.log("<noteState.js: note added>",title, description, tag);
     fetch(
       `${host}/api/notes/addnote`,
       {
@@ -54,6 +57,12 @@ const NoteState = (props) => {
   //update a note
   const updateNote = (id, title, description, tag) => {
     // console.log(id, title, description, tag)
+    let newNote = {};
+
+    if (title.length) { newNote.title = title; }
+    if (description.length) { newNote.description = description; }
+    if (tag.length) { newNote.tag = tag; } else { newNote.tag = "Default"; }
+
     fetch(
       `${host}/api/notes/updatenote/${id}`,
       {
@@ -62,7 +71,7 @@ const NoteState = (props) => {
           'Content-Type': 'application/json',
           'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIzZTc3ODIyZDc1MjcyYzNmZGNjMTc0In0sImlhdCI6MTY0ODI3MzQ3Nn0.pUtruQa3T4hLbCmYQAVrrhwPmaEzqUFjICjMLpCwYi8'
         },
-        body: JSON.stringify({ title, description, tag })
+        body: JSON.stringify(newNote)
       }
     ).then((response) => {
       // console.log("<noteState.js: " + Object.values(response) + ">");
@@ -73,23 +82,25 @@ const NoteState = (props) => {
       for (let index = 0; index < newNotes.length; index++) {
         const element = newNotes[index];
         if (element._id === id) {
-          newNotes[index].title = title;
-          newNotes[index].description = description;
-          newNotes[index].tag = tag;
+          if (title.length) { newNotes[index].title = title };
+          if (description.length) { newNotes[index].description = description };
+          if (tag.length) { newNotes[index].tag = tag };
           break;
         }
       }
       setNotes(newNotes);
     })
+
+    // console.log("notestate:>", updateNoteValues)
   }
 
   // update note state to store update values
-
   const updateNoteValuesToState = (vals) => {
     setUpdateNoteValues(vals);
 
     // console.log(updateNoteValues)
   }
+  
 
 
   //delete note
@@ -111,7 +122,7 @@ const NoteState = (props) => {
   }
 
   return (
-    <noteContext.Provider value={{ notes, addNote, deleteNote, allNotes, updateNote, updateNoteValuesToState, updateNoteValues  }}>
+    <noteContext.Provider value={{ notes, addNote, deleteNote, allNotes, updateNote, updateNoteValuesToState, updateNoteValues, setUpdateNoteValues, formStateHidden, setFormStateHidden }}>
       {props.children}
     </noteContext.Provider>
   )
