@@ -24,7 +24,7 @@ const AddNote = () => {
     } */
     const handleClickOnUpdate = (e) => {
         e.preventDefault();
-        updateNote(updateNoteValues.id, updateNoteValues.title, updateNoteValues.description, updateNoteValues.tag);
+        updateNote(updateNoteValues.eid, updateNoteValues.etitle, updateNoteValues.edescription, updateNoteValues.etag);
         setUpdateNoteValues({});
         setFormStateHidden(false);
 
@@ -68,28 +68,28 @@ const AddNote = () => {
         </Form>
 
         <Form className='my-3' hidden={!formStateHidden}>
-            <Form.Group className="mb-3" controlId="sdfsgxdsfg">
+            <Form.Group className="mb-3" controlId="dse5e5de5">
                 <Form.Label><h3>Title</h3></Form.Label>
-                <Form.Control type="text" placeholder="Enter a title" name='title' onChange={onChangeUpdate} required={true} defaultValue={updateNoteValues.title} />
+                <Form.Control type="text" placeholder="Enter a title" name='etitle' onChange={onChangeUpdate} required={true} defaultValue={updateNoteValues.etitle} />
                 <Form.Text className="text-muted">
                     Title must be at list 3 character.
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="sdfsdwws">
+            <Form.Group className="mb-3" controlId="d45e4d">
                 <Form.Label><h3>Description</h3></Form.Label>
-                <Form.Control as="textarea" aria-label="Give the description here" name='description' rows={5} onChange={onChangeUpdate} required={true} defaultValue={updateNoteValues.description} />
+                <Form.Control as="textarea" aria-label="Give the description here" name='edescription' rows={5} onChange={onChangeUpdate} required={true} defaultValue={updateNoteValues.edescription} />
                 <Form.Text className="text-muted">
                     Description must be at list 3 character.
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="dfgdg">
+            <Form.Group className="mb-3" controlId="d454545">
                 <Form.Label><h3>Tag</h3></Form.Label>
-                <Form.Control type="text" placeholder="Give the tag here" name='tag' onChange={onChangeUpdate} defaultValue={updateNoteValues.tag} />
+                <Form.Control type="text" placeholder="Give the tag here" name='etag' onChange={onChangeUpdate} defaultValue={updateNoteValues.etag} />
             </Form.Group>
             <Button variant="info" type="submit" onClick={handleClickOnUpdate} disabled={
-                (updateNoteValues.title !== undefined && updateNoteValues.description !== undefined) && (updateNoteValues.title.length < 3 || updateNoteValues.description.length < 3)
+                (updateNoteValues.etitle !== undefined && updateNoteValues.edescription !== undefined) && (updateNoteValues.etitle.length < 3 || updateNoteValues.edescription.length < 3)
             } >
                 Update Note
             </Button>

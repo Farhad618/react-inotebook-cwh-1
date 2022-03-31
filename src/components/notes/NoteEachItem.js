@@ -19,7 +19,7 @@ const NoteEachItem = (props) => {
                         <div className="vr" />
                         <PencilSquare className='text-primary crpointer' onClick={
                             () => {
-                                context.updateNoteValuesToState({ id: props.noteId, title: props.noteTitle, description: props.noteDescrp, tag: props.noteTag })
+                                context.updateNoteValuesToState({ eid: props.noteId, etitle: props.noteTitle, edescription: props.noteDescrp, etag: props.noteTag })
                                 setFormStateHidden(true);
                             }
                         } />

@@ -6,25 +6,35 @@ import About from "./components/About";
 import NoteState from "./context/notes/noteState";
 import AlertCompo from "./components/utilities/Alert";
 import './App.css';
+import Login from "./components/user/Login";
+import SignUp from "./components/user/SignUp";
+import UserState from "./context/user/UserState";
+
+
 
 
 
 function App() {
   return (
     <div className="App">
-      <NoteState>
-        <Router>
-          <NavBar />
-          {/* <AlertCompo head={"heading"} type={"danger"} /> */}
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About />} />
-            {/* <Route path="/users">
+      <UserState>
+        <NoteState>
+          <Router>
+            <NavBar />
+            {/* <AlertCompo head={"heading"} type={"danger"} /> */}
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/about" element={<About />} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/signup" element={<SignUp />} />
+              {/* <Route path="/users">
             <Users />
           </Route> */}
-          </Routes>
-        </Router>
-      </NoteState>
+            </Routes>
+          </Router>
+        </NoteState>
+      </UserState>
+
     </div>
   );
 }
