@@ -9,7 +9,7 @@ const NoteEachItem = (props) => {
     return (<>
         {/* <EditNoteModal title={props.noteTitle} desription={props.noteDescrp} tag={props.noteTag} noteid={props.noteId} /> */}
         <Col>
-            <Card style={{ width: '25rem' }} className="my-3">
+            <Card className="my-3">
                 <Card.Header as="h5">
                     <Stack direction="horizontal" gap={3}>
                         <div className='text-wrap' style={{ maxWidth: '150px' }}>

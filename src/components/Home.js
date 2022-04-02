@@ -1,20 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap'
+import { useNavigate } from "react-router";
 import AddNote from './notes/AddNote';
 import AllNotes from './notes/AllNotes';
 
 const Home = () => {
+  let navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
+
+  const redirect = () => {
+
+  }
+
+  useEffect(() => {
+    // return () => {
+    if (!localStorage.getItem('inoteToken')) {
+      setShow(false);
+      navigate("/login");
+    } else {
+      setShow(true);
+    }
+    // };
+  }, []);
+
   return (
     <>
-      <Container>
-        <AddNote />
-
-        <h3>Notes</h3>
-        <AllNotes />
-      </Container>
-
+      {show &&
+        <Container>
+          <AddNote />
+          <h3>Notes</h3>
+          <AllNotes />
+        </Container>
+      }
     </>
   );
+
 }
 
 export default Home;
