@@ -9,10 +9,6 @@ const Home = () => {
 
   const [show, setShow] = useState(false);
 
-  const redirect = () => {
-
-  }
-
   useEffect(() => {
     // return () => {
     if (!localStorage.getItem('inoteToken')) {

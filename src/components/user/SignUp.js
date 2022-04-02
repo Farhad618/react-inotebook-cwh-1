@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { Form, Button, Container, Nav } from 'react-bootstrap';
+import { Form, Button, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router";
-import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import userContext from '../../context/user/userContext';
 
@@ -9,7 +8,7 @@ const SignUp = () => {
   let navigate = useNavigate();
 
   const context = useContext(userContext);
-  const { userLogin, usrAuthT, host } = context;
+  const { host } = context;
   const [loginDtls, setloginDtls] = useState({});
 
 

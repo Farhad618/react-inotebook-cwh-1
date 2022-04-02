@@ -35,7 +35,7 @@ const NoteState = (props) => {
 
   //read all notes
   const allNotes = () => {
-    const response = fetch(
+    fetch(
       `${host}/api/notes/allnotes`,
       {
         method: 'GET',

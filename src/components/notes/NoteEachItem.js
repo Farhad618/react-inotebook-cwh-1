@@ -5,7 +5,7 @@ import noteContext from '../../context/notes/noteContext';
 
 const NoteEachItem = (props) => {
     const context = useContext(noteContext);
-    const {formStateHidden, setFormStateHidden} = context;
+    const { setFormStateHidden} = context;
     return (<>
         {/* <EditNoteModal title={props.noteTitle} desription={props.noteDescrp} tag={props.noteTag} noteid={props.noteId} /> */}
         <Col>

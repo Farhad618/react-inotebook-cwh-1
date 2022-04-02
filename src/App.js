@@ -4,7 +4,6 @@ import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import About from "./components/About";
 import NoteState from "./context/notes/noteState";
-import AlertCompo from "./components/utilities/Alert";
 import './App.css';
 import Login from "./components/user/Login";
 import SignUp from "./components/user/SignUp";

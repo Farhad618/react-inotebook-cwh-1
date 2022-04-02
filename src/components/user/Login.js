@@ -9,7 +9,7 @@ const Login = () => {
   let navigate = useNavigate();
 
   const context = useContext(userContext);
-  const { userLogin, usrAuthT, host } = context;
+  const { host } = context;
   const [loginDtls, setloginDtls] = useState({});
 
 
